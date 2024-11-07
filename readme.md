@@ -1,6 +1,6 @@
 # Spring PetClinic Sample Application [![Build Status](https://github.com/spring-petclinic/spring-petclinic-ai/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-ai/actions/workflows/maven-build.yml)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-petclinic/spring-petclinic-ai) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/spring-petclinic-ai)
 
 ## Understanding the Spring Petclinic AI application
 
@@ -22,7 +22,38 @@ Spring Petclinic integrates a Chatbot that allows you to interact with the appli
 ![Screenshot of the chat dialog](docs/chat-dialog.png)
 
 Spring Petclinic currently supports **OpenAI** or **Azure's OpenAI** as the LLM provider.
-In order to start `spring-petlinic-springai` perform the following steps:
+
+## Run Spring Petclinic AI application
+
+In order to start `spring-petlinic-ai`, you can either [run it on Azure with github codespace](#run-petclinic-ai-in-codespace) or [run it locally](#run-petclinic-ai-locally).
+
+### Run Petclinic AI in codespace
+
+1. Create your codespace in github.
+
+   Go to the github page of the repo [spring-petclinic-ai](https://github.com/Azure-Samples/spring-petclinic-ai), click <kbd>Code</kbd> and <kbd>Create codespace on main</kbd>.
+
+1. In your new codespace environment, open a terminal and run `azd auth login`.
+1. Run command `azd up`, input your environment name and select your subscription and target region.
+
+   ```
+   ? Enter a new environment name: <env-name>
+   ? Select an Azure Subscription to use: xxx xxx
+   ? Select an Azure location to use: xxx
+   ```
+
+   Your Petclinic AI environment will be ready in 20 minutes.
+   Follow the prompt info to open the service url.
+   ```
+   INFO: App url: https://petclinic-ai.<cluster>.<region>.azurecontainerapps.io
+   ```
+
+Note:
+   > This AI sample uses Azure Open AI models `gpt-4o` and `text-embedding-ada-002`, there models are available in regions **East US**, **East US 2**, **North Central US**, **South Central US**, **Spain Central**, **Sweden Central**, **West US**, **West US3**, please refer to [Azure OpenAI Service models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions#standard-deployment-model-availability) for more details.
+
+### Run Petclinic AI locally
+
+### Prepare Open AI instance
 
 1. Decide which provider you want to use. By default, the `spring-ai-openai-spring-boot-starter` dependency is enabled. You can change it to `spring-ai-azure-openai-spring-boot-starter`in either`pom.xml` or in `build.gradle`, depending on your build tool of choice.
 2. Create an OpenAI API key or a Azure OpenAI resource in your Azure Portal. Refer to the [OpenAI's quickstart](https://platform.openai.com/docs/quickstart) or [Azure's documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/) for further information on how to obtain these. You only need to populate the provider you're using - either openai, or azure-openai.
@@ -36,9 +67,9 @@ In order to start `spring-petlinic-springai` perform the following steps:
     export AZURE_OPENAI_ENDPOINT="https://your_resource.openai.azure.com"
     export AZURE_OPENAI_KEY="your_api_key_here"
     ```
-4. Follow the [next section Run Petclinic locally](#run-petclinic-locally)
+4. Follow the [next section Run Petclinic locally](#run-petclinic-in-local-environment)
 
-## Run Petclinic locally
+#### Run Petclinic in local environment
 
 Spring Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/) or [Gradle](https://spring.io/guides/gs/gradle/). You can build a jar file and run it from the command line (it should work just as well with Java 17 or newer):
 
