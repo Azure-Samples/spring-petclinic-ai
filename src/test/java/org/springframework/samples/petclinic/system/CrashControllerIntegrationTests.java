@@ -25,12 +25,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -40,8 +36,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-
-import com.azure.ai.openai.OpenAIClient;
+import org.springframework.samples.petclinic.PetClinicApplication;
 
 /**
  * Integration Test for {@link CrashController}.
@@ -53,10 +48,8 @@ import com.azure.ai.openai.OpenAIClient;
 		properties = { "server.error.include-message=ALWAYS", "management.endpoints.enabled-by-default=false" })
 class CrashControllerIntegrationTests {
 
-	@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
-			DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
-	static class TestConfiguration {
-
+	public static void main(String[] args) {
+		SpringApplication.run(PetClinicApplication.class, args);
 	}
 
 	@Value(value = "${local.server.port}")
@@ -64,9 +57,6 @@ class CrashControllerIntegrationTests {
 
 	@Autowired
 	private TestRestTemplate rest;
-
-	@MockBean
-	OpenAIClient openAIClient;
 
 	@Test
 	void testTriggerExceptionJson() {
