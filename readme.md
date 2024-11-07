@@ -1,4 +1,4 @@
-# Spring PetClinic Sample Application [![Build Status](https://github.com/spring-petclinic/spring-petclinic-ai/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-ai/actions/workflows/maven-build.yml)
+# Bring your first AI app in Azure Container Apps[![Build Status](https://github.com/spring-petclinic/spring-petclinic-ai/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-ai/actions/workflows/maven-build.yml)
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/spring-petclinic-ai)
 
@@ -29,6 +29,8 @@ In order to start `spring-petlinic-ai`, you can either [run it on Azure with git
 
 ### Run Petclinic AI in codespace
 
+This will create required resources in Azure and deploy the AI application to Azure Container Apps.
+
 1. Create your codespace in github.
 
    Go to the github page of the repo [spring-petclinic-ai](https://github.com/Azure-Samples/spring-petclinic-ai), click <kbd>Code</kbd> and <kbd>Create codespace on main</kbd>.
@@ -46,6 +48,13 @@ In order to start `spring-petlinic-ai`, you can either [run it on Azure with git
    Follow the prompt info to open the service url.
    ```
    INFO: App url: https://petclinic-ai.<cluster>.<region>.azurecontainerapps.io
+   ```
+
+1. On any updates, run steps to deploy your code
+
+   ```
+   mvn clean package -DskipTests
+   azd deploy
    ```
 
 Note:
