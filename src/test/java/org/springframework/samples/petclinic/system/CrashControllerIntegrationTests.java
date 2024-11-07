@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -39,6 +40,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+
+import com.azure.ai.openai.OpenAIClient;
 
 /**
  * Integration Test for {@link CrashController}.
@@ -61,6 +64,9 @@ class CrashControllerIntegrationTests {
 
 	@Autowired
 	private TestRestTemplate rest;
+
+	@MockBean
+	OpenAIClient openAIClient;
 
 	@Test
 	void testTriggerExceptionJson() {
