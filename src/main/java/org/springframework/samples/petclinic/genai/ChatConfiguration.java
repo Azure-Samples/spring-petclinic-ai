@@ -41,12 +41,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
+import org.springframework.samples.petclinic.conditions.ConditionalOnPropertyNotEmpty;
 
 import com.azure.ai.openai.OpenAIClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 
 import java.util.List;
+
+import com.azure.core.credential.AzureKeyCredential;
 
 @Configuration
 @EnableConfigurationProperties({ ChatAuthProperties.class, ChatOptionsProperties.class })
@@ -82,10 +85,18 @@ class ChatConfiguration {
 	 * EmbeddingModel
 	 */
 	@Bean
-	@ConditionalOnProperty(ChatAuthProperties.PREFIX + ".client-id")
-	public OpenAIClient openAIClient(ChatAuthProperties properties) {
+	@ConditionalOnPropertyNotEmpty(ChatAuthProperties.PREFIX + ".client-id")
+	public OpenAIClient openAIClientManagedIdentity(ChatAuthProperties properties) {
 		return new OpenAIClientBuilder().endpoint(properties.getEndpoint())
 			.credential(new DefaultAzureCredentialBuilder().managedIdentityClientId(properties.getClientId()).build())
+			.buildClient();
+	}
+
+	@Bean
+	@ConditionalOnPropertyNotEmpty(ChatAuthProperties.PREFIX + ".api-key")
+	public OpenAIClient openAIClientApiKey(ChatAuthProperties properties) {
+		return new OpenAIClientBuilder().endpoint(properties.getEndpoint())
+			.credential(new AzureKeyCredential(properties.getApiKey()))
 			.buildClient();
 	}
 
