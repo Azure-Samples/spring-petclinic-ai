@@ -105,8 +105,7 @@ class ChatConfiguration {
 	 */
 	@Bean
 	public ChatClient chatClient(ChatClient.Builder chatClientBuilder) {
-		return chatClientBuilder.defaultFunctions("listOwners", "listVets", "addPetToOwner", "addOwnerToPetclinic")
-			.build();
+		return chatClientBuilder.build();
 	}
 
 	/**
@@ -122,8 +121,9 @@ class ChatConfiguration {
 		// use PromptChatMemoryAdvisor to access the stored conversation memory
 		// use ModeledQuestionAnswerAdvisor to process user queries before retrieving
 		// relevant documents
-		return b -> b.defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory),
-				new ModeledQuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), model));
+		return b -> b.defaultFunctions("listOwners", "listVets", "addPetToOwner", "addOwnerToPetclinic")
+			.defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory),
+					new ModeledQuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), model));
 	}
 
 	/**
