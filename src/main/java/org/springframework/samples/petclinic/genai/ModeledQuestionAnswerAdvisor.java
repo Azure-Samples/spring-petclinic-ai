@@ -30,12 +30,13 @@ import java.util.Map;
  */
 public class ModeledQuestionAnswerAdvisor extends QuestionAnswerAdvisor {
 
-	private static final String TRANSLATE = "Generate 1 different versions of a provided user query. "
-			+ "but they should all retain the original meaning. "
-			+ "It will be used to retrieve relevant documents and it should be in English \n"
-			+ "Without enumerations, hyphens, or any additional formatting!";
+	private static final String TRANSLATE = """
+			Generate one user query retain the original meaning.
+			It will be used to retrieve relevant documents and it should be in English without enumerations, hyphens,
+			or any additional formatting.
+			""";
 
-	private ChatModel chatModel;
+	private final ChatModel chatModel;
 
 	public ModeledQuestionAnswerAdvisor(VectorStore vectorStore, ChatModel chatModel, String modeledText) {
 		super(vectorStore);
