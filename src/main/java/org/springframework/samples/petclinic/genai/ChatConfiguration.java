@@ -121,7 +121,8 @@ class ChatConfiguration {
 		// use PromptChatMemoryAdvisor to access the stored conversation memory
 		// use ModeledQuestionAnswerAdvisor to process user queries before retrieving
 		// relevant documents
-		return b -> b.defaultFunctions("listOwners", "listVets", "addPetToOwner", "addOwnerToPetclinic")
+		return b -> b.defaultSystem(systemResource)
+			.defaultFunctions("listOwners", "listVets", "addPetToOwner", "addOwnerToPetclinic")
 			.defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory),
 					new ModeledQuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), model));
 	}
@@ -133,11 +134,7 @@ class ChatConfiguration {
 	 */
 	@Bean
 	public VectorStore simpleVectorStore(EmbeddingModel embeddingModel) {
-		TextReader textReader = new TextReader(systemResource);
-		List<Document> documents = new TokenTextSplitter().apply(textReader.get());
-		VectorStore store = new SimpleVectorStore(embeddingModel);
-		store.add(documents);
-		return store;
+		return new SimpleVectorStore(embeddingModel);
 	}
 
 }
