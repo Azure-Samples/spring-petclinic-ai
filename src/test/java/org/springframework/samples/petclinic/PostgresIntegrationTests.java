@@ -47,9 +47,9 @@ import org.testcontainers.DockerClientFactory;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
 		properties = { "spring.docker.compose.skip.in-tests=false", "spring.docker.compose.profiles.active=postgres" })
-@ActiveProfiles({ "postgres", "test" })
+@ActiveProfiles("postgres")
 @DisabledInNativeImage
-public class PostgresIntegrationTests {
+public class PostgresIntegrationTests extends BaseIntegrationTest {
 
 	@LocalServerPort
 	int port;

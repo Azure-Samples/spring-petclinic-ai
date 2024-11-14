@@ -41,11 +41,11 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({ "mysql", "test" })
+@ActiveProfiles("mysql")
 @Testcontainers(disabledWithoutDocker = true)
 @DisabledInNativeImage
 @DisabledInAotMode
-class MySqlIntegrationTests {
+class MySqlIntegrationTests extends BaseIntegrationTest {
 
 	@ServiceConnection
 	@Container

@@ -36,8 +36,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.samples.petclinic.BaseIntegrationTest;
 import org.springframework.samples.petclinic.PetClinicApplication;
-import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Integration Test for {@link CrashController}.
@@ -47,8 +47,7 @@ import org.springframework.test.context.ActiveProfiles;
 // NOT Waiting https://github.com/spring-projects/spring-boot/issues/5574
 @SpringBootTest(webEnvironment = RANDOM_PORT,
 		properties = { "server.error.include-message=ALWAYS", "management.endpoints.enabled-by-default=false" })
-@ActiveProfiles("test")
-class CrashControllerIntegrationTests {
+class CrashControllerIntegrationTests extends BaseIntegrationTest {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PetClinicApplication.class, args);
