@@ -28,6 +28,6 @@ public class ChatOptionsProperties {
 
 	String deploymentName;
 
-	Float temperature;
+	Double temperature;
 
 }

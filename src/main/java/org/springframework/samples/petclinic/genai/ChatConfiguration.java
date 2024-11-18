@@ -40,7 +40,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.samples.petclinic.conditions.ConditionalOnPropertyNotEmpty;
 
-import com.azure.ai.openai.OpenAIClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.core.credential.AzureKeyCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
@@ -61,7 +60,7 @@ class ChatConfiguration {
 	 */
 	@Bean
 	@ConditionalOnProperty(ChatOptionsProperties.PREFIX + ".deployment-name")
-	public AzureOpenAiChatModel chatModel(OpenAIClient openAIClient, ChatOptionsProperties properties) {
+	public AzureOpenAiChatModel chatModel(OpenAIClientBuilder openAIClientBuilder, ChatOptionsProperties properties) {
 		var openAIChatOptions = AzureOpenAiChatOptions.builder()
 			.withDeploymentName(properties.getDeploymentName())
 			.withTemperature(properties.getTemperature())
@@ -71,7 +70,7 @@ class ChatConfiguration {
 		var functionCallbackContext = new FunctionCallbackContext();
 		functionCallbackContext.setApplicationContext(applicationContext);
 
-		return new AzureOpenAiChatModel(openAIClient, openAIChatOptions, functionCallbackContext);
+		return new AzureOpenAiChatModel(openAIClientBuilder, openAIChatOptions, functionCallbackContext);
 	}
 
 	/**
@@ -80,18 +79,16 @@ class ChatConfiguration {
 	 */
 	@Bean
 	@ConditionalOnPropertyNotEmpty(ChatAuthProperties.PREFIX + ".client-id")
-	public OpenAIClient openAIClientManagedIdentity(ChatAuthProperties properties) {
+	public OpenAIClientBuilder openAIClientManagedIdentity(ChatAuthProperties properties) {
 		return new OpenAIClientBuilder().endpoint(properties.getEndpoint())
-			.credential(new DefaultAzureCredentialBuilder().managedIdentityClientId(properties.getClientId()).build())
-			.buildClient();
+			.credential(new DefaultAzureCredentialBuilder().managedIdentityClientId(properties.getClientId()).build());
 	}
 
 	@Bean
 	@ConditionalOnPropertyNotEmpty(ChatAuthProperties.PREFIX + ".api-key")
-	public OpenAIClient openAIClientApiKey(ChatAuthProperties properties) {
+	public OpenAIClientBuilder openAIClientApiKey(ChatAuthProperties properties) {
 		return new OpenAIClientBuilder().endpoint(properties.getEndpoint())
-			.credential(new AzureKeyCredential(properties.getApiKey()))
-			.buildClient();
+			.credential(new AzureKeyCredential(properties.getApiKey()));
 	}
 
 	/**
