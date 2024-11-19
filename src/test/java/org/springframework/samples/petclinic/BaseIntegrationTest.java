@@ -19,12 +19,12 @@ package org.springframework.samples.petclinic;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.azure.ai.openai.OpenAIClient;
+import com.azure.ai.openai.OpenAIClientBuilder;
 
 @ActiveProfiles("test")
 public class BaseIntegrationTest {
 
 	@MockBean
-	private OpenAIClient openAIClient;
+	private OpenAIClientBuilder openAIClientBuilder;
 
 }
