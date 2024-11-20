@@ -13,4 +13,4 @@ Write-Host "App url: https://$env:appFqdn"
 
 $domain = (az account show -o tsv --query tenantDefaultDomain)
 Write-Host "INFO: " -ForegroundColor Green -NoNewline;
-Write-Host "Resource Group: $env:environmentPortal/#@$domain$env:resourceGroupId
+Write-Host "Resource Group: $env:environmentPortal/#@$domain/resource$env:resourceGroupId"
