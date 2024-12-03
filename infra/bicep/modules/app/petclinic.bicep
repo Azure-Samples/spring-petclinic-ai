@@ -22,8 +22,12 @@ var env = [
       value: openAiEndpoint
     }
     {
-      name: 'AZURE_OPENAI_CLIENT_ID'
+      name: 'AZURE_CLIENT_ID'
       value: umiAppsClientId
+    }
+    {
+      name: 'AZURE_OPENAI_KEYLESS'
+      value: 'true'
     }
   ]
 

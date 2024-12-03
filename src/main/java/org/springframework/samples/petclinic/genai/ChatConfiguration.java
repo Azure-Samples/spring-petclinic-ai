@@ -78,10 +78,10 @@ class ChatConfiguration {
 	 * EmbeddingModel
 	 */
 	@Bean
-	@ConditionalOnPropertyNotEmpty(ChatAuthProperties.PREFIX + ".client-id")
+	@ConditionalOnProperty(name = ChatAuthProperties.PREFIX + "enable-keyless-auth", havingValue = "true", matchIfMissing = false)
 	public OpenAIClientBuilder openAIClientManagedIdentity(ChatAuthProperties properties) {
 		return new OpenAIClientBuilder().endpoint(properties.getEndpoint())
-			.credential(new DefaultAzureCredentialBuilder().managedIdentityClientId(properties.getClientId()).build());
+			.credential(new DefaultAzureCredentialBuilder().build());
 	}
 
 	@Bean

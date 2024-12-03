@@ -26,9 +26,9 @@ public class ChatAuthProperties {
 
 	static final String PREFIX = "spring.ai.azure.openai";
 
-	String endpoint;
+	boolean enableKeylessAuth;
 
-	String clientId;
+	String endpoint;
 
 	String apiKey;
 
