@@ -52,7 +52,7 @@ public class ModeledQuestionAnswerAdvisor extends QuestionAnswerAdvisor {
 		// for retrieval
 		AdvisedRequest processedRequest = AdvisedRequest.from(request).withUserText(processedMessage).build();
 
-		return chain.nextAroundCall(processedRequest);
+		return super.aroundCall(processedRequest, chain);
 	}
 
 }
